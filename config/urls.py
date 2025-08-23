@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from tracker.views import UserRegistrationView
 
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),

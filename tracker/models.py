@@ -7,12 +7,10 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name="profile"
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    avatar = models.ImageField(
+        upload_to="avatars/", blank=True, null=True, default="avatars/default.jpg"
     )
-    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True, default="avatars/default.jpg")
     bio = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
@@ -43,16 +41,8 @@ class MediaStatus(models.TextChoices):
 
 
 class UserMedia(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="media"
-    )
-    item = models.ForeignKey(
-        MediaItem,
-        on_delete=models.CASCADE,
-        related_name="media"
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="media")
+    item = models.ForeignKey(MediaItem, on_delete=models.CASCADE, related_name="media")
     progress = models.IntegerField(default=0)
     status = models.CharField(max_length=20, choices=MediaStatus.choices)
     rating = models.PositiveIntegerField(null=True, blank=True)
@@ -60,9 +50,7 @@ class UserMedia(models.Model):
 
 class Note(models.Model):
     user_media = models.ForeignKey(
-        UserMedia,
-        on_delete=models.CASCADE,
-        related_name="notes"
+        UserMedia, on_delete=models.CASCADE, related_name="notes"
     )
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
-
-from django.urls import reverse_lazy
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -134,4 +132,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-LOGIN_REDIRECT_URL = reverse_lazy("tracker:index")
+LOGIN_REDIRECT_URL = "/"

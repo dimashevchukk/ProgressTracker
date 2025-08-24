@@ -1,3 +1,15 @@
 from django.contrib import admin
 
-# Register your models here.
+from tracker.models import (
+    User,
+    Profile,
+    MediaItem,
+    UserMedia,
+    Note
+)
+
+admin.site.register(User)
+admin.site.register(Profile)
+admin.site.register(MediaItem)
+admin.site.register(UserMedia)
+admin.site.register(Note)

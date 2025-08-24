@@ -9,6 +9,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.nav-link {
+    font-size: 20px;
+}
+
 .container {
     margin-left: 10px;
 }

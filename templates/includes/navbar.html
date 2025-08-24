@@ -26,12 +26,15 @@
             <li class="nav-item">
               <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-link nav-link">Log Out</button>
+                <button type="submit" class="btn nav-link">Log Out</button>
               </form>
             </li>
           {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url "login" %}">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url "register" %}">Sign Up</a>
             </li>
           {% endif %}
         </ul>

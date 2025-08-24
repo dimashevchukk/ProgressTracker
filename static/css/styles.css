@@ -1,0 +1,64 @@
+body {
+    color: #797979;
+    background: #f1f2f7;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: 13px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    margin-left: 10px;
+}
+
+.profile-nav, .profile-info{
+    margin-top:15px;
+}
+
+.profile-nav .user-heading {
+    background: purple;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    padding: 30px;
+    text-align: center;
+}
+
+.profile-nav .user-heading a img {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.profile-nav .user-heading h1 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.bio-graph-heading {
+    background: purple;
+    color: #fff;
+    text-align: center;
+    font-style: italic;
+    padding: 40px 110px;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding:0 15px;
+}
+
+.bio-chart, .bio-desk {
+    float: left;
+}
+

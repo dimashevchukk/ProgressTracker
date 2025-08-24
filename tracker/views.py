@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from tracker.models import Profile, MediaItem
 from tracker.forms import CustomUserCreationForm
 
 
@@ -21,8 +22,22 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 class ProfileDetailView(generic.DetailView):
-    pass
+    model = Profile
+    template_name = "tracker/profile.html"
+    context_object_name = "profile"
 
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get("pk")
+
+        if pk:
+            return Profile.objects.get(pk=pk)
+
+        if self.request.user.is_authenticated:
+            return self.request.user
+
+    def get_context_data(self, **kwargs):   # need to add mediaitems later
+        context = super().get_context_data(**kwargs)
+        return context
 
 class GameListView(generic.ListView):
     pass

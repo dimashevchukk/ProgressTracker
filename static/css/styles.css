@@ -1,12 +1,13 @@
 body {
-    color: #797979;
-    background: #f1f2f7;
+    color: #b5b5b5;
+    background: #1a1918;
     font-family: 'Open Sans', sans-serif;
-    padding: 0px !important;
-    margin: 0px !important;
-    font-size: 13px;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar {
+    background: #b5b5b5;
 }
 
 .nav-link {

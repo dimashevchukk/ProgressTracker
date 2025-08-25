@@ -2,10 +2,26 @@
 {% load static %}
 
 {% block content %}
-  <h1>{{ object.title }}</h1>
-  {% if object.cover %}
-    <img src="{{ item.cover.url }}" class="card-img-top" alt="{{ item.title }}">
-  {% else %}
-    <img src="{% static 'images/covers/default_cover.jpg' %}" class="card-img-top" alt="{{ item.title }}">
-  {% endif %}
+  <div>
+    <div class="row">
+      <div class="col-md-3">
+        {% if object.cover %}
+          <img src="{{ object.cover.url }}" class="img-fluid rounded shadow-sm" alt="{{ object.title }}">
+        {% else %}
+          <img src="{% static 'images/covers/default_cover.jpg' %}" class="img-fluid rounded shadow-sm" alt="{{ object.title }}">
+        {% endif %}
+      </div>
+
+      <div class="col-md-8">
+        <h1>{{ object.title }}</h1>
+        <br>
+        {% if object.release_date %}
+          <p><strong>Release date:</strong> {{ object.release_date }}</p>
+        {% endif %}
+        {% if object.description %}
+          <p class="mt-3"><strong>Description:</strong> {{ object.description }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -23,7 +23,6 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class ProfileDetailView(generic.DetailView):
     model = Profile
-    template_name = "tracker/profile.html"
     context_object_name = "profile"
 
     def get_object(self, queryset=None):
@@ -42,7 +41,6 @@ class ProfileDetailView(generic.DetailView):
 
 class MediaListView(generic.ListView):
     model = MediaItem
-    template_name = "tracker/media_list.html"
 
     def get_queryset(self):
         media_type = self.kwargs.get("type")
@@ -56,4 +54,3 @@ class MediaListView(generic.ListView):
 
 class MediaDetailView(generic.DetailView):
     model = MediaItem
-    template_name = "tracker/media_detail.html"

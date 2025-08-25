@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  {% if object.cover %}
+    <img src="{{ item.cover.url }}" class="card-img-top" alt="{{ item.title }}">
+  {% else %}
+    <img src="{% static 'images/covers/default_cover.jpg' %}" class="card-img-top" alt="{{ item.title }}">
+  {% endif %}
+{% endblock %}

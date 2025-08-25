@@ -3,9 +3,8 @@ from django.urls import path
 from tracker.views import (
     index,
     ProfileDetailView,
-    GameListView,
-    BookListView,
-    MovieListView,
+    MediaListView,
+    MediaDetailView,
 )
 
 app_name = "tracker"
@@ -16,7 +15,6 @@ urlpatterns = [
     path("profile/", ProfileDetailView.as_view(), name="profile-detail"),
     path("profile/<int:pk>/", ProfileDetailView.as_view(), name="profile-detail"),
 
-    path("games/", GameListView.as_view(), name="game-list"),
-    path("movies/", MovieListView.as_view(), name="movie-list"),
-    path("books/", BookListView.as_view(), name="book-list"),
+    path("media/<str:type>/", MediaListView.as_view(), name="media-list"),
+    path("media/<str:type>/<int:pk>/", MediaDetailView.as_view(), name="media-detail")
 ]

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div>
+    <h1>{{ media_type|capfirst }}s</h1>
+    <div class="row g-3 justify-content-start">
+      {% for item in mediaitem_list %}
+        <div class="col" style="flex: 0 0 20%;">
+          <a href="{% url 'tracker:media-detail' type=media_type pk=item.pk %}">
+            <div class="card">
+              {% if item.cover %}
+                <img src="{{ item.cover.url }}" class="card-img-top" alt="{{ item.title }}">
+              {% else %}
+                <img src="{% static 'images/covers/default_cover.jpg' %}" class="card-img-top" alt="{{ item.title }}">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title">{{ item.title }}</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

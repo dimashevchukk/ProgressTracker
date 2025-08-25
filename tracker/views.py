@@ -39,13 +39,21 @@ class ProfileDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-class GameListView(generic.ListView):
-    pass
+
+class MediaListView(generic.ListView):
+    model = MediaItem
+    template_name = "tracker/media_list.html"
+
+    def get_queryset(self):
+        media_type = self.kwargs.get("type")
+        return MediaItem.objects.filter(type=media_type)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["media_type"] = self.kwargs.get("type")
+        return context
 
 
-class BookListView(generic.ListView):
-    pass
-
-
-class MovieListView(generic.ListView):
-    pass
+class MediaDetailView(generic.DetailView):
+    model = MediaItem
+    template_name = "tracker/media_detail.html"

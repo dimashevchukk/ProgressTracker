@@ -8,13 +8,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{% url "tracker:game-list" %}">Games</a>
+          <a class="nav-link" href="{% url 'tracker:media-list' 'game' %}">Games</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "tracker:book-list" %}">Books</a>
+          <a class="nav-link" href="{% url 'tracker:media-list' 'book' %}">Books</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url "tracker:movie-list" %}">Movies</a>
+          <a class="nav-link" href="{% url 'tracker:media-list' 'movie' %}">Movies</a>
         </li>
       </ul>
       <div class="d-flex">

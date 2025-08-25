@@ -13,13 +13,40 @@
       </div>
 
       <div class="col-md-8">
-        <h1>{{ object.title }}</h1>
+        <h1 class="d-flex align-items-center justify-content-between">
+          {{ object.title }}
+          <form method="post" action="{% url 'tracker:note-add' user_media.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Add Note</button>
+          </form>
+        </h1>
+
         <br>
         {% if object.release_date %}
           <p><strong>Release date:</strong> {{ object.release_date }}</p>
         {% endif %}
         {% if object.description %}
           <p class="mt-3"><strong>Description:</strong> {{ object.description }}</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+          {% if user_media %}
+            {% if notes %}
+              <h3>Notes</h3>
+              <div class="row">
+                {% for note in notes %}
+                  <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+                      <div class="card-body p-2">
+                        {{ note.text }}
+                        <small class="text-muted d-block mt-1">{{ note.created_at|date:"d M Y H:i" }}</small>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endif %}
         {% endif %}
       </div>
     </div>

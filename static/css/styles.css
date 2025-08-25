@@ -8,51 +8,74 @@ body {
 }
 
 .content {
-  max-width: 1100px;
-  margin: 50px auto;
+    max-width: 1100px;
+    margin: 50px auto;
 }
 
 .card {
-  border: none;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: none;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card .overlay-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay-btn {
+    opacity: 70%;
+}
+
+.btn-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .card-img-top {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: 300px;
-  object-fit: cover;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
 
 .card-body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 80px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80px;
 }
 
 .card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: gray;
-  margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 0.5rem;
 }
 
 .card-text {
-  font-size: 0.9rem;
-  color: gray;
-  flex-grow: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    font-size: 0.9rem;
+    color: gray;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 a, .card {
@@ -71,8 +94,8 @@ a, .card {
     margin-left: 10px;
 }
 
-.profile-nav, .profile-info{
-    margin-top:15px;
+.profile-nav, .profile-info {
+    margin-top: 15px;
 }
 
 .profile-nav .user-heading {
@@ -113,7 +136,7 @@ a, .card {
     width: 50%;
     float: left;
     margin-bottom: 10px;
-    padding:0 15px;
+    padding: 0 15px;
 }
 
 .bio-chart, .bio-desk {

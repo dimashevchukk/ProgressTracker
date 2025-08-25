@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from tracker.models import Profile, MediaItem
+from tracker.models import Profile, MediaItem, UserMedia, Note
 from tracker.forms import CustomUserCreationForm
 
 
@@ -54,3 +55,38 @@ class MediaListView(generic.ListView):
 
 class MediaDetailView(generic.DetailView):
     model = MediaItem
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            user_media = UserMedia.objects.filter(
+                user=self.request.user,
+                item=self.object
+            ).first()
+            context["user_media"] = user_media
+
+            if user_media:
+                context["notes"] = user_media.notes.all()
+
+        return context
+
+
+@login_required
+def add_media_to_library(request: HttpRequest, type: str, pk: int) -> HttpResponse:
+    media_item = get_object_or_404(MediaItem, pk=pk)
+    UserMedia.objects.create(
+        user=request.user,
+        item=media_item
+    )
+    return redirect("tracker:media-detail", type=media_item.type, pk=pk)
+
+
+@login_required
+def add_note(request, user_media_id):
+    user_media = get_object_or_404(UserMedia, id=user_media_id)
+    if request.method == "POST":
+        text = request.POST.get("text")
+        if text:
+            Note.objects.create(user_media=user_media, text=text)
+
+    return redirect("tracker:media-detail", type=user_media.item.type, pk=user_media.item.pk)

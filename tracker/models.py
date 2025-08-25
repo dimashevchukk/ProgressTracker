@@ -51,9 +51,15 @@ class UserMedia(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="media")
     item = models.ForeignKey(MediaItem, on_delete=models.CASCADE, related_name="media")
     progress = models.IntegerField(default=0)
-    status = models.CharField(max_length=20, choices=MediaStatus.choices)
+    status = models.CharField(
+        max_length=20,
+        choices=MediaStatus.choices,
+        default=MediaStatus.PLANNED
+    )
     rating = models.PositiveIntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.user.username} - {self.item.title}"
 
 class Note(models.Model):
     user_media = models.ForeignKey(

@@ -13,7 +13,15 @@
                 <img src="{{ item.cover.url }}" class="card-img-top" alt="{{ item.title }}">
               {% else %}
                 <img src="{% static 'images/covers/default_cover.jpg' %}" class="card-img-top" alt="{{ item.title }}">
+              {% endif %} 
+
+              {% if user.is_authenticated %}
+                <form method="post" action="{% url 'tracker:media-add' type=media_type pk=item.pk %}" class="overlay-btn">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-secondary btn-circle">+</button>
+                </form>
               {% endif %}
+
               <div class="card-body">
                 <h5 class="card-title">{{ item.title }}</h5>
               </div>

@@ -6,9 +6,13 @@ from tracker.models import Note
 
 
 class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = UserCreationForm.Meta.fields
+        fields = UserCreationForm.Meta.fields + (
+            "first_name", "last_name"
+        )
 
 
 class NoteForm(forms.ModelForm):

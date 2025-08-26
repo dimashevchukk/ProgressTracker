@@ -15,7 +15,7 @@
                 <img src="{% static 'images/covers/default_cover.jpg' %}" class="card-img-top" alt="{{ item.title }}">
               {% endif %} 
 
-              {% if user.is_authenticated %}
+              {% if user.is_authenticated and item.id not in user_media_ids %}
                 <form method="post" action="{% url 'tracker:media-add' type=media_type pk=item.pk %}" class="overlay-btn">
                   {% csrf_token %}
                   <button type="submit" class="btn btn-secondary btn-circle">+</button>

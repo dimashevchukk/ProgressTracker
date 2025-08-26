@@ -44,8 +44,12 @@ class ProfileDetailView(generic.DetailView):
         if self.request.user.is_authenticated:
             return self.request.user
 
-    def get_context_data(self, **kwargs):   # need to add mediaitems later
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        user_media = user.media.select_related('item').all()  # підвантажує MediaItem разом
+        context["user_media"] = user_media
+        context["media_titles"] = [um.item.title for um in user_media]  # вже без додаткових запитів
         return context
 
 
@@ -59,6 +63,10 @@ class MediaListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["media_type"] = self.kwargs.get("type")
+
+        if self.request.user.is_authenticated:
+            context["user_media_ids"] = self.request.user.media.values_list('item_id', flat=True)
+
         return context
 
 

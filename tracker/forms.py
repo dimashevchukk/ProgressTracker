@@ -14,4 +14,4 @@ class CustomUserCreationForm(UserCreationForm):
 class NoteForm(forms.ModelForm):
     class Meta:
         model = Note
-
+        fields = ["title", "text"]

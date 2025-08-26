@@ -6,19 +6,22 @@
     <div class="row">
       <div class="col-md-3">
         {% if object.cover %}
-          <img src="{{ object.cover.url }}" class="img-fluid rounded shadow-sm" alt="{{ object.title }}">
+          <img src="{{ object.cover.url }}"
+               class="img-fluid rounded shadow-sm media-cover"
+               alt="{{ object.title }}">
         {% else %}
-          <img src="{% static 'images/covers/default_cover.jpg' %}" class="img-fluid rounded shadow-sm" alt="{{ object.title }}">
+          <img src="{% static 'images/covers/default_cover.jpg' %}"
+               class="img-fluid rounded shadow-sm media-cover"
+               alt="{{ object.title }}">
         {% endif %}
       </div>
 
       <div class="col-md-8">
         <h1 class="d-flex align-items-center justify-content-between">
           {{ object.title }}
-          <form method="post" action="{% url 'tracker:note-add' user_media.id %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Add Note</button>
-          </form>
+          {% if user.is_authenticated and user_media%}
+            <a href="{% url 'tracker:note-add' user_media.id %}" class="btn btn-primary">Add Note</a>
+          {% endif %}
         </h1>
 
         <br>
@@ -32,14 +35,22 @@
         {% if user.is_authenticated %}
           {% if user_media %}
             {% if notes %}
-              <h3>Notes</h3>
+              <br>
+              <h2>Notes</h2>
+              <br>
               <div class="row">
                 {% for note in notes %}
                   <div class="col-md-4 mb-3">
                     <div class="card shadow-sm">
                       <div class="card-body p-2">
-                        {{ note.text }}
-                        <small class="text-muted d-block mt-1">{{ note.created_at|date:"d M Y H:i" }}</small>
+                        <h6 class="mb-1">
+                          {{ note.title }}
+                          <a href="{% url 'tracker:note-delete' note.pk %}" class="note-delete btn btn-sm btn-danger d-flex">&times;</a>
+                          <a href="{% url 'tracker:note-update' note.pk %}" class="stretched-link"></a>
+                        </h6>
+                        <small class="text-muted d-block mt-1">
+                          {{ note.created_at|date:"d M Y H:i" }}
+                        </small>
                       </div>
                     </div>
                   </div>

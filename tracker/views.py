@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
 from tracker.models import Profile, MediaItem, UserMedia, Note
-from tracker.forms import CustomUserCreationForm
-
+from tracker.forms import CustomUserCreationForm, NoteForm
 
 User = get_user_model()
 
@@ -18,8 +18,17 @@ class UserRegistrationView(generic.CreateView):
     success_url = reverse_lazy("tracker:index")
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    return render(request, "tracker/index.html")
+class UserLibraryView(LoginRequiredMixin, generic.ListView):
+    model = UserMedia
+    template_name = "tracker/index.html"
+    context_object_name = "user_media_list"
+
+    def get_queryset(self):
+        return (
+            UserMedia.objects
+            .select_related("item")
+            .filter(user=self.request.user)
+        )
 
 
 class ProfileDetailView(generic.DetailView):
@@ -66,7 +75,7 @@ class MediaDetailView(generic.DetailView):
             context["user_media"] = user_media
 
             if user_media:
-                context["notes"] = user_media.notes.all()
+                context["notes"] = user_media.notes.order_by("-created_at")
 
         return context
 
@@ -80,13 +89,47 @@ def add_media_to_library(request: HttpRequest, type: str, pk: int) -> HttpRespon
     )
     return redirect("tracker:media-detail", type=media_item.type, pk=pk)
 
+class NoteCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Note
+    form_class = NoteForm
 
-@login_required
-def add_note(request, user_media_id):
-    user_media = get_object_or_404(UserMedia, id=user_media_id)
-    if request.method == "POST":
-        text = request.POST.get("text")
-        if text:
-            Note.objects.create(user_media=user_media, text=text)
+    def form_valid(self, form):
+        user_media_id = self.kwargs.get("user_media_id")
+        user_media = get_object_or_404(UserMedia, id=user_media_id)
+        form.instance.user_media = user_media
+        return super().form_valid(form)
 
-    return redirect("tracker:media-detail", type=user_media.item.type, pk=user_media.item.pk)
+    def get_success_url(self):
+        return redirect(
+            "tracker:media-detail",
+            type=self.object.user_media.item.type,
+            pk=self.object.user_media.item.pk
+        ).url
+
+
+class NoteUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Note
+    form_class = NoteForm
+
+    def form_valid(self, form):
+        user_media_id = self.kwargs.get("user_media_id")
+        user_media = get_object_or_404(UserMedia, id=user_media_id)
+        form.instance.user_media = user_media
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return redirect(
+            "tracker:media-detail",
+            type=self.object.user_media.item.type,
+            pk=self.object.user_media.item.pk
+        ).url
+
+
+class NoteDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Note
+
+    def get(self, request, pk):
+        note = get_object_or_404(Note, pk=pk)
+        if note.user_media.user == request.user:
+            note.delete()
+        return redirect(request.META.get('HTTP_REFERER', '/'))

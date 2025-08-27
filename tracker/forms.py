@@ -10,9 +10,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = UserCreationForm.Meta.fields + (
-            "first_name", "last_name"
-        )
+        fields = UserCreationForm.Meta.fields + ("first_name", "last_name")
 
 
 class NoteForm(forms.ModelForm):

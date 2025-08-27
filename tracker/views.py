@@ -24,11 +24,7 @@ class UserLibraryView(LoginRequiredMixin, generic.ListView):
     context_object_name = "user_media_list"
 
     def get_queryset(self):
-        return (
-            UserMedia.objects
-            .select_related("item")
-            .filter(user=self.request.user)
-        )
+        return UserMedia.objects.select_related("item").filter(user=self.request.user)
 
 
 class ProfileDetailView(generic.DetailView):
@@ -47,9 +43,13 @@ class ProfileDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
-        user_media = user.media.select_related('item').all()  # підвантажує MediaItem разом
+        user_media = user.media.select_related(
+            "item"
+        ).all()  # підвантажує MediaItem разом
         context["user_media"] = user_media
-        context["media_titles"] = [um.item.title for um in user_media]  # вже без додаткових запитів
+        context["media_titles"] = [
+            um.item.title for um in user_media
+        ]  # вже без додаткових запитів
         return context
 
 
@@ -65,7 +65,9 @@ class MediaListView(generic.ListView):
         context["media_type"] = self.kwargs.get("type")
 
         if self.request.user.is_authenticated:
-            context["user_media_ids"] = self.request.user.media.values_list('item_id', flat=True)
+            context["user_media_ids"] = self.request.user.media.values_list(
+                "item_id", flat=True
+            )
 
         return context
 
@@ -77,8 +79,7 @@ class MediaDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
             user_media = UserMedia.objects.filter(
-                user=self.request.user,
-                item=self.object
+                user=self.request.user, item=self.object
             ).first()
             context["user_media"] = user_media
 
@@ -91,11 +92,9 @@ class MediaDetailView(generic.DetailView):
 @login_required
 def add_media_to_library(request: HttpRequest, type: str, pk: int) -> HttpResponse:
     media_item = get_object_or_404(MediaItem, pk=pk)
-    UserMedia.objects.create(
-        user=request.user,
-        item=media_item
-    )
+    UserMedia.objects.create(user=request.user, item=media_item)
     return redirect("tracker:media-detail", type=media_item.type, pk=pk)
+
 
 class NoteCreateView(LoginRequiredMixin, generic.CreateView):
     model = Note
@@ -111,7 +110,7 @@ class NoteCreateView(LoginRequiredMixin, generic.CreateView):
         return redirect(
             "tracker:media-detail",
             type=self.object.user_media.item.type,
-            pk=self.object.user_media.item.pk
+            pk=self.object.user_media.item.pk,
         ).url
 
 
@@ -129,7 +128,7 @@ class NoteUpdateView(LoginRequiredMixin, generic.UpdateView):
         return redirect(
             "tracker:media-detail",
             type=self.object.user_media.item.type,
-            pk=self.object.user_media.item.pk
+            pk=self.object.user_media.item.pk,
         ).url
 
 
@@ -140,4 +139,4 @@ class NoteDeleteView(LoginRequiredMixin, generic.DeleteView):
         note = get_object_or_404(Note, pk=pk)
         if note.user_media.user == request.user:
             note.delete()
-        return redirect(request.META.get('HTTP_REFERER', '/'))
+        return redirect(request.META.get("HTTP_REFERER", "/"))

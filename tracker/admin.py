@@ -1,12 +1,6 @@
 from django.contrib import admin
 
-from tracker.models import (
-    User,
-    Profile,
-    MediaItem,
-    UserMedia,
-    Note
-)
+from tracker.models import User, Profile, MediaItem, UserMedia, Note
 
 admin.site.register(User)
 admin.site.register(Profile)

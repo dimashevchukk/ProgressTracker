@@ -8,12 +8,7 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    avatar = models.ImageField(
-        upload_to="images/avatars/",
-        blank=True,
-        null=True,
-        default="images/avatars/default_avatar.jpg",
-    )
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
     bio = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
@@ -30,7 +25,7 @@ class MediaItem(models.Model):
     type = models.CharField(max_length=20, choices=MediaType.choices)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    cover = models.ImageField(upload_to="images/covers/", blank=True, null=True)
+    cover = models.ImageField(upload_to="covers/", blank=True, null=True)
     total_progress = models.IntegerField(default=0)
     release_date = models.DateField(blank=True, null=True)
 

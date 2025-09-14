@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse, parse_qsl
 from .base import *
-
+import cloudinary
 
 load_dotenv(BASE_DIR / ".env")
 
@@ -13,11 +13,6 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost", "127.0.0.1",
     "progresstracker-i1rf.onrender.com",
-]
-
-INSTALLED_APPS += [
-    "cloudinary_storage",
-    "cloudinary",
 ]
 
 RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
@@ -40,11 +35,25 @@ DATABASES = {
     }
 }
 
+# CLOUDINARY_STORAGE = {
+#     "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+#     "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+#     "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+#
+# }
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    secury=True
+)
 
-CLOUDINARY_STORAGE = {
-    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
-    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
-    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
 }

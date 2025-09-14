@@ -16,8 +16,8 @@ app_name = "tracker"
 
 urlpatterns = [
     path("", UserLibraryView.as_view(), name="index"),
-    path("profile/", ProfileDetailView.as_view(), name="profile-detail"),
-    path("profile/<int:pk>/", ProfileDetailView.as_view(), name="profile-detail"),
+    path("profiles/", ProfileDetailView.as_view(), name="profile-detail"),
+    path("profiles/<int:pk>/", ProfileDetailView.as_view(), name="profile-detail"),
     path("media/<str:type>/", MediaListView.as_view(), name="media-list"),
     path("media/<str:type>/<int:pk>/", MediaDetailView.as_view(), name="media-detail"),
     path("media/<str:type>/<int:pk>/add/", add_media_to_library, name="media-add"),

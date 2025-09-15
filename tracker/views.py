@@ -42,12 +42,18 @@ class ProfileDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.get_object()
-        user_media = user.media.select_related("item")
-        context["user_media"] = user_media
-        context["media_titles"] = [
-            um.item.title for um in user_media
-        ]
+        user = self.request.user
+
+        if user.is_authenticated:
+            user_media = user.media.select_related("item")
+            context["user_media"] = user_media
+            context["media_titles"] = [
+                um.item.title for um in user_media
+            ]
+        else:
+            context["user_media"] = []
+            context["media_titles"] = []
+
         return context
 
 

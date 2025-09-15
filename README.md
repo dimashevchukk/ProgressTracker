@@ -6,7 +6,12 @@ The app is designed as both a practical tool and a portfolio project.
 
 ---
 
-## URL https://progresstracker-i1rf.onrender.com/
+## Render 
+URL https://progresstracker-i1rf.onrender.com/
+
+User  
+login testuser  
+password 1qazcde3
 
 ---
 

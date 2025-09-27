@@ -1,15 +1,8 @@
 from django.urls import path
 
-from tracker.views import (
-    UserLibraryView,
-    ProfileDetailView,
-    MediaListView,
-    MediaDetailView,
-    add_media_to_library,
-    NoteCreateView,
-    NoteUpdateView,
-    NoteDeleteView,
-)
+from tracker.views import (MediaDetailView, MediaListView, NoteCreateView,
+                           NoteDeleteView, NoteUpdateView, ProfileDetailView,
+                           UserLibraryView, add_media_to_library)
 
 app_name = "tracker"
 

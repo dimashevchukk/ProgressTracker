@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from tracker.models import Profile, MediaItem, UserMedia, Note
 from tracker.forms import CustomUserCreationForm, NoteForm
+from tracker.models import MediaItem, Note, Profile, UserMedia
 
 User = get_user_model()
 
@@ -47,9 +47,7 @@ class ProfileDetailView(generic.DetailView):
         if user.is_authenticated:
             user_media = user.media.select_related("item")
             context["user_media"] = user_media
-            context["media_titles"] = [
-                um.item.title for um in user_media
-            ]
+            context["media_titles"] = [um.item.title for um in user_media]
         else:
             context["user_media"] = []
             context["media_titles"] = []

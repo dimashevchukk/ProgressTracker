@@ -1,8 +1,10 @@
 import os
-from dotenv import load_dotenv
-from urllib.parse import urlparse, parse_qsl
-from .base import *
+from urllib.parse import parse_qsl, urlparse
+
 import cloudinary
+from dotenv import load_dotenv
+
+from .base import *
 
 load_dotenv(BASE_DIR / ".env")
 
@@ -11,7 +13,8 @@ load_dotenv(BASE_DIR / ".env")
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "localhost", "127.0.0.1",
+    "localhost",
+    "127.0.0.1",
     "progresstracker-i1rf.onrender.com",
 ]
 
@@ -39,7 +42,7 @@ cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
     api_key=os.getenv("CLOUDINARY_API_KEY"),
     api_secret=os.getenv("CLOUDINARY_API_SECRET"),
-    secury=True
+    secury=True,
 )
 
 STORAGES = {
@@ -51,4 +54,4 @@ STORAGES = {
     },
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"

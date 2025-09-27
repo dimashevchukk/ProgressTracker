@@ -1,7 +1,6 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-from cloudinary.models import CloudinaryField
 
 
 class User(AbstractUser):
@@ -10,9 +9,7 @@ class User(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
-    avatar = CloudinaryField(
-        "image", folder="avatars", blank=True, null=True
-    )
+    avatar = CloudinaryField("image", folder="avatars", blank=True, null=True)
     bio = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
@@ -29,9 +26,7 @@ class MediaItem(models.Model):
     type = models.CharField(max_length=20, choices=MediaType.choices)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    cover = CloudinaryField(
-        "image", folder="covers", blank=True, null=True
-    )
+    cover = CloudinaryField("image", folder="covers", blank=True, null=True)
     total_progress = models.IntegerField(default=0)
     release_date = models.DateField(blank=True, null=True)
 

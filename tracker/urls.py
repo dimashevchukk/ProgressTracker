@@ -1,9 +1,10 @@
 from django.urls import path
 
 from tracker.views import (MediaCreateView, MediaDeleteView, MediaDetailView,
-                           MediaListView, NoteCreateView, NoteDeleteView,
-                           NoteUpdateView, ProfileDetailView, UserLibraryView,
-                           add_media_to_library, remove_media_from_library)
+                           MediaListView, MediaUpdateView, NoteCreateView,
+                           NoteDeleteView, NoteUpdateView, ProfileDetailView,
+                           UserLibraryView, add_media_to_library,
+                           remove_media_from_library)
 
 app_name = "tracker"
 
@@ -15,6 +16,11 @@ urlpatterns = [
     path("items/<str:type>/", MediaListView.as_view(), name="media-list"),
     path("items/<str:type>/create/", MediaCreateView.as_view(), name="media-create"),
     path("items/<str:type>/<int:pk>/", MediaDetailView.as_view(), name="media-detail"),
+    path(
+        "items/<str:type>/<int:pk>/update/",
+        MediaUpdateView.as_view(),
+        name="media-update",
+    ),
     path(
         "items/<str:type>/<int:pk>/delete/",
         MediaDeleteView.as_view(),

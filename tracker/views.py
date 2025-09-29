@@ -106,6 +106,18 @@ class MediaDetailView(generic.DetailView):
         return context
 
 
+class MediaUpdateView(generic.UpdateView):
+    model = MediaItem
+    form_class = MediaItemForm
+
+    def get_success_url(self):
+        return redirect(
+            "tracker:media-detail",
+            type=self.object.type,
+            pk=self.object.pk,
+        ).url
+
+
 class MediaDeleteView(generic.DeleteView):
     model = MediaItem
 

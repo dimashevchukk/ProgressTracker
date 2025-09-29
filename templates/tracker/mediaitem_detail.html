@@ -21,6 +21,10 @@
           {{ object.title }}
           {% if user.is_authenticated and user_media%}
             <a href="{% url 'tracker:note-add' user_media.id %}" class="btn btn-primary">Add Note</a>
+            <a href="{% url 'tracker:media-remove' type=object.type pk=object.pk %}" class="btn btn-warning">Unfollow</a>
+          {% endif %}
+          {% if user.is_staff %}
+          	<a href="{% url 'tracker:media-delete' type=object.type pk=object.pk %}" class="btn btn-danger">Delete</a>
           {% endif %}
         </h1>
 

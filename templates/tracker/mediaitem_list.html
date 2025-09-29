@@ -3,7 +3,14 @@
 
 {% block content %}
   <div>
-    <h1>{{ media_type|capfirst }}s</h1>
+    <h1 class="d-flex align-items-center justify-content-between">
+      {{ media_type|capfirst }}s
+      {% if user.is_authenticated and user.is_staff %}
+        <a href="{% url 'tracker:media-create' type=media_type %}" class="btn btn-primary">
+          Add Item
+        </a>
+      {% endif %}
+    </h1>
     <br>
     <div class="row g-3 justify-content-start">
       {% for item in mediaitem_list %}

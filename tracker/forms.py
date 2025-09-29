@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
-from tracker.models import Note, MediaItem
+from tracker.models import MediaItem, Note
 
 
 class CustomUserCreationForm(UserCreationForm):

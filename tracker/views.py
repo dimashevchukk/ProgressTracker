@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from tracker.forms import CustomUserCreationForm, NoteForm, MediaItemForm
+from tracker.forms import CustomUserCreationForm, MediaItemForm, NoteForm
 from tracker.models import MediaItem, Note, Profile, UserMedia
 
 User = get_user_model()

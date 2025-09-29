@@ -1,9 +1,9 @@
 from django.urls import path
 
-from tracker.views import (MediaDetailView, MediaListView, NoteCreateView,
-                           NoteDeleteView, NoteUpdateView, ProfileDetailView,
-                           UserLibraryView, add_media_to_library, MediaCreateView, MediaDeleteView,
-                           remove_media_from_library)
+from tracker.views import (MediaCreateView, MediaDeleteView, MediaDetailView,
+                           MediaListView, NoteCreateView, NoteDeleteView,
+                           NoteUpdateView, ProfileDetailView, UserLibraryView,
+                           add_media_to_library, remove_media_from_library)
 
 app_name = "tracker"
 
@@ -15,9 +15,17 @@ urlpatterns = [
     path("items/<str:type>/", MediaListView.as_view(), name="media-list"),
     path("items/<str:type>/create/", MediaCreateView.as_view(), name="media-create"),
     path("items/<str:type>/<int:pk>/", MediaDetailView.as_view(), name="media-detail"),
-    path("items/<str:type>/<int:pk>/delete/", MediaDeleteView.as_view(), name="media-delete"),
+    path(
+        "items/<str:type>/<int:pk>/delete/",
+        MediaDeleteView.as_view(),
+        name="media-delete",
+    ),
     path("items/<str:type>/<int:pk>/add/", add_media_to_library, name="media-add"),
-    path("items/<str:type>/<int:pk>/remove/", remove_media_from_library, name="media-remove"),
+    path(
+        "items/<str:type>/<int:pk>/remove/",
+        remove_media_from_library,
+        name="media-remove",
+    ),
     path(
         "items/<int:user_media_id>/add_note/", NoteCreateView.as_view(), name="note-add"
     ),

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Your Library</h1>
+    <br>
+    {% if user_media_list %}
+      <div class="row g-3 justify-content-start">
+        {% for media in user_media_list %}
+          <div class="col" style="flex: 0 0 20%;">
+            <a href="{% url 'tracker:media-detail' type=media.item.type pk=media.item.pk %}">
+              <div class="card">
+                {% if media.item.cover %}
+                  <img src="{{ media.item.cover.url }}" class="card-img-top" alt="{{ media.item.title }}">
+                {% else %}
+                  <img src="{% static 'images/covers/default_cover.jpg' %}" class="card-img-top" alt="{{ media.item.title }}">
+                {% endif %}
+
+                <div class="card-body">
+                  <h5 class="card-title">{{ media.item.title }}</h5>
+                  <p class="card-text">
+                    Status: {{ media.status }}
+                  </p>
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>You haven't added any media yet.</p>
+    {% endif %}
+  </div>
+{% endblock %}

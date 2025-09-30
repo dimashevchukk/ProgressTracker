@@ -1,0 +1,163 @@
+body {
+    color: #b5b5b5;
+    background: #1a1918;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.content {
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card .overlay-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay-btn {
+    opacity: 70%;
+}
+
+.btn-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: gray;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+a, .card {
+    text-decoration: none;
+}
+
+.navbar {
+    background: #b5b5b5;
+}
+
+.nav-link {
+    font-size: 20px;
+}
+
+.container {
+    margin-left: 10px;
+}
+
+.profile-nav, .profile-info {
+    margin-top: 15px;
+}
+
+.profile-nav .user-heading {
+    background: purple;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    padding: 30px;
+    text-align: center;
+}
+
+.profile-nav .user-heading a img {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.profile-nav .user-heading h1 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.bio-graph-heading {
+    background: purple;
+    color: #fff;
+    text-align: center;
+    font-style: italic;
+    padding: 30px 40px;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+.media-cover {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.note-delete {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 1rem;
+    line-height: 1;
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .note-delete {
+   opacity: 1;
+}
+

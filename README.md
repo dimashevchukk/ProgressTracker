@@ -9,9 +9,9 @@ The app is designed as both a practical tool and a portfolio project.
 ## Render 
 URL https://progresstracker-i1rf.onrender.com/
 
-Admin User (To manage media please use this one)
-admin
-q1w2e3r4t5y6
+Admin User (To manage media please use this one)  
+admin  
+q1w2e3r4t5y6  
 
 User  
 login testuser  
